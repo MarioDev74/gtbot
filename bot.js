@@ -1,0 +1,111 @@
+var Discord = require('discord.io');
+var logger = require('winston');
+var auth = require('./auth.json');
+
+const fs = require("fs");
+var data = fs.readFileSync("./gamertags.json");
+var gamertags = JSON.parse(data);
+
+// Configure logger settings
+logger.remove(logger.transports.Console);
+logger.add(logger.transports.Console, {
+    colorize: true
+});
+logger.level = 'debug';
+// Initialize Discord Bot
+var bot = new Discord.Client({
+   token: auth.token,
+   autorun: true
+});
+bot.on('ready', function (evt) {
+    logger.info('Connected');
+    logger.info('Logged in as: ');
+    logger.info(bot.username + ' - (' + bot.id + ')');
+});
+bot.on('message', function (user, userID, channelID, message, evt) {
+    // Our bot needs to know if it will execute a command
+    // It will listen for messages that will start with `!`
+    if (message.substring(0, 1) == '!') {
+        var args = message.substring(1).split(' -');
+        var cmd = args[0];
+        var par = args[1];
+        var par2 = args[2];
+       
+        args = args.splice(1);
+
+        switch(cmd) {
+            case 'gt':                
+                if (par != null) {
+                    if (gamertags.hasOwnProperty(par)) {
+                        let gt = gamertags[par].gamertag;
+                        bot.sendMessage({
+                            to: channelID,
+                            message: 'El GT de ' + par + ' es: ' + gt
+                        });
+                    } else {
+                        bot.sendMessage({
+                            to: channelID,
+                            message: 'El usuario ' + par + ' aun no tiene un GT registrado. Favor de usar el comando !agregargt -gamertag para agregarlo. Asegurate de respetar mayusculas y minusculas.'
+                        });
+                    };
+                } else {
+                    bot.sendMessage({
+                        to: channelID,
+                        message: 'El comando utilizado requiere un nombre de usuario para buscar su GT.'
+                    });                
+                };
+                break;
+            case 'agregargt':
+                if (par != null && par2 != null) {
+                    if (gamertags.hasOwnProperty(par)) {
+                        gamertags[par].gamertag = par2;
+                        fs.writeFile("./gamertags.json", JSON.stringify(gamertags, null, 4));
+                        bot.sendMessage({
+                            to: channelID,
+                            message: 'El GT ' + par2 + ' ha sido modificado para el usuario ' + par
+                        });
+                    } else {
+                        //var strgt = ""
+                        gamertags[par] = {
+                            gamertag: par2
+                        }
+                        fs.writeFile("./gamertags.json", JSON.stringify(gamertags, null, 4));//, err => {
+                        //if (err) throw err;
+                        //});
+                        bot.sendMessage({
+                            to: channelID,
+                            message: 'El GT ' + par2 + ' ha sido agregado para el usuario ' + par
+                        });
+                    };
+                } else if (par != null) { //Caso cuando un usuario agrega su propio GT.
+                    if (gamertags.hasOwnProperty(user)) {
+                        gamertags[user].gamertag = par;
+                        fs.writeFile("./gamertags.json", JSON.stringify(gamertags, null, 4));
+                        bot.sendMessage({
+                            to: channelID,
+                            message: 'El GT ' + par + ' ha sido modificado para el usuario ' + user
+                        });
+                    } else {
+                        //var strgt = ""
+                        gamertags[user] = {
+                            gamertag: par
+                        }
+                        fs.writeFile("./gamertags.json", JSON.stringify(gamertags, null, 4));//, err => {
+                        //if (err) throw err;
+                        //});
+                        bot.sendMessage({
+                            to: channelID,
+                            message: 'El GT ' + par + ' ha sido agregado para el usuario ' + user + '.'
+                        });
+                    };
+                } else {
+                    bot.sendMessage({
+                        to: channelID,
+                        message: 'El comando utilizado requiere que se indique el GT a agregar.'
+                    });
+                };
+                break;
+            // Just add any case commands if you want to..
+         }
+     }
+});

@@ -1,0 +1,11 @@
+{
+  "name": "gtbot",
+  "version": "1.0.0",
+  "description": "Bot para almacenar y mostrar los Gamertags.",
+  "main": "bot.js",
+  "author": "MarioCMS",
+  "dependencies": {
+    "discord.io": "^2.5.3",
+    "winston": "^2.4.2"
+  }
+}
