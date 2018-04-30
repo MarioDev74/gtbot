@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Bot para almacenar y mostrar los Gamertags.",
   "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js"
+  },
   "author": "MarioCMS",
   "dependencies": {
     "discord.io": "^2.5.3",
