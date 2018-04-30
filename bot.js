@@ -105,6 +105,14 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     });
                 };
                 break;
+            case 'ayudagt':
+                bot.sendMessage({
+                    to: channelID,
+                    message: 'Para usar el GTBot (Bot de Gamertags) usa los siguientes comandos: /n'
+                        + '!gt -nombredeusuario para ver el Gamertag de algún usuario de Discord. /n'
+                        + '!agregargt -gamertag para registrar tu Gamertag en la base de datos, y que otros lo puedan buscar.'
+                });
+                break;
             // Just add any case commands if you want to..
          }
      }
