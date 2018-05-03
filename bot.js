@@ -9,7 +9,8 @@ const fs = require("fs");
 //var data = fs.readFileSync(fileUrl);
 var gamertags// = JSON.parse(data);
 
-var params = { Bucket: process.env.S3_BUCKET_NAME, Key: process.env.AWS_ACCESS_KEY_ID };
+var params = {
+    Bucket: "gtbot", Key: "AKIAJCSC4SVOSXAH4QQQ" };
 new AWS.S3().getObject(params, function (err, json_data) {
     if (!err) {
         gamertags = JSON.parse(new Buffer(json_data.Body).toString("utf8"));
