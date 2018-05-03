@@ -47,14 +47,13 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
         switch(cmd) {
             case 'gt':
-            case 'agregargt':
-            case 'ayudagt':
+            //case 'agregargt':
+            //case 'ayudagt':
                 bot.sendMessage({
                     to: channelID,
                     message: 'Por el momento, GTBot se encuentra en mantenimiento. Disculpa las molestias. Pronto volvera con toda la funcionalidad!'
                 });
                 break;
-
             case 'prueba1':
                 if (par != null) {
                     if (gamertags.hasOwnProperty(par)) {
