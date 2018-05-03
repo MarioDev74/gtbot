@@ -3,10 +3,17 @@ var logger = require('winston');
 var auth = require('./auth.json');
 
 const fs = require("fs");
-const { URL } = require('url');
-const fileUrl = new URL('https://s3.us-east-2.amazonaws.com/gtbot/gamertags.json');
-var data = fs.readFileSync(fileUrl);
-var gamertags = JSON.parse(data);
+//const { URL } = require('url');
+//const fileUrl = new URL('https://s3.us-east-2.amazonaws.com/gtbot/gamertags.json');
+//var data = fs.readFileSync(fileUrl);
+//var gamertags = JSON.parse(data);
+
+var params = { Bucket: S3_BUCKET_NAME, Key: AWS_ACCESS_KEY_ID };
+new AWS.S3().getObject(params, function (err, json_data) {
+    if (!err) {
+        var gamertags = JSON.parse(new Buffer(json_data.Body).toString("utf8"));
+     }
+   });
 
 // Configure logger settings
 logger.remove(logger.transports.Console);
