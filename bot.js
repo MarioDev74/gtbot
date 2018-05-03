@@ -13,7 +13,9 @@ var params = { Bucket: process.env.S3_BUCKET_NAME, Key: process.env.AWS_ACCESS_K
 new AWS.S3().getObject(params, function (err, json_data) {
     if (!err) {
         var gamertags = JSON.parse(new Buffer(json_data.Body).toString("utf8"));
-     }
+    } else {
+        var gamertags = JSON.parse('{"mariocms": {"gamertag": "MarioCMS"}}');
+    }
    });
 
 // Configure logger settings
