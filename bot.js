@@ -44,7 +44,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         var par2 = args[2];
        
         args = args.splice(1);
-
+         
         switch(cmd) {
             case 'gt':
             //case 'agregargt':
