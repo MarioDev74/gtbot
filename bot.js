@@ -3,9 +3,9 @@ var logger = require('winston');
 var auth = require('./auth.json');
 
 const fs = require("fs");
-//const { URL } = require('url');
-//const fileUrl = new URL('https://drive.google.com/file/d/1IOsloIZl1k35zqIK6V7_rxBC5g7bwB_T/view?usp=sharing');
-var data = fs.readFileSync('./gamertags.json');
+const { URL } = require('url');
+const fileUrl = new URL('https://s3.us-east-2.amazonaws.com/gtbot/gamertags.json');
+var data = fs.readFileSync(fileUrl);
 var gamertags = JSON.parse(data);
 
 // Configure logger settings
@@ -45,7 +45,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 });
                 break;
 
-                /*
+            case 'prueba1':
                 if (par != null) {
                     if (gamertags.hasOwnProperty(par)) {
                         let gt = gamertags[par].gamertag;
@@ -66,7 +66,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     });                
                 };
                 break;
-            case 'agregargt':
+            case 'prueba2':
                 if (par != null && par2 != null) {
                     if (gamertags.hasOwnProperty(par)) {
                         gamertags[par].gamertag = par2;
@@ -116,7 +116,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     });
                 };
                 break;
-            case 'ayudagt':
+            case 'prueba3':
                 bot.sendMessage({
                     to: channelID,
                     message: 'Para usar el GTBot (Bot de Gamertags) usa los siguientes comandos: \n'
@@ -124,7 +124,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                         + '!agregargt -gamertag para registrar tu Gamertag en la base de datos, y que otros lo puedan buscar.'
                 });
                 break;
-            // Just add any case commands if you want to..*/
+            // Just add any case commands if you want to..
          }
      }
 });
