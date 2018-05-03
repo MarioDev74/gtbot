@@ -7,14 +7,14 @@ const fs = require("fs");
 //const { URL } = require('url');
 //const fileUrl = new URL('https://s3.us-east-2.amazonaws.com/gtbot/gamertags.json');
 //var data = fs.readFileSync(fileUrl);
-//var gamertags = JSON.parse(data);
+var gamertags// = JSON.parse(data);
 
 var params = { Bucket: process.env.S3_BUCKET_NAME, Key: process.env.AWS_ACCESS_KEY_ID };
 new AWS.S3().getObject(params, function (err, json_data) {
     if (!err) {
-        var gamertags = JSON.parse(new Buffer(json_data.Body).toString("utf8"));
+        gamertags = JSON.parse(new Buffer(json_data.Body).toString("utf8"));
     } else {
-        var gamertags = JSON.parse('{"mariocms": {"gamertag": "MarioCMS"}}');
+        gamertags = JSON.parse('{"mariocms": {"gamertag": "MarioCMS"}}');
     }
    });
 
