@@ -4,9 +4,6 @@ var auth = require('./auth.json');
 var AWS = require('aws-sdk');
 
 const fs = require("fs");
-//const { URL } = require('url');
-//const fileUrl = new URL('https://s3.us-east-2.amazonaws.com/gtbot/gamertags.json');
-//var data = fs.readFileSync(fileUrl);
 var gamertags// = JSON.parse(data);
 
 var params = {
@@ -47,16 +44,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
        
         args = args.splice(1);
          
-        switch(cmd) {
+        switch(cmd) {                
             case 'gt':
-            //case 'agregargt':
-            //case 'ayudagt':
-                bot.sendMessage({
-                    to: channelID,
-                    message: 'Por el momento, GTBot se encuentra en mantenimiento. Disculpa las molestias. Pronto volvera con toda la funcionalidad!'
-                });
-                break;
-            case 'prueba1':
                 if (par != null) {
                     if (gamertags.hasOwnProperty(par)) {
                         let gt = gamertags[par].gamertag;
@@ -77,7 +66,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     });                
                 };
                 break;
-            case 'prueba2':
+            case 'agregargt':
                 if (par != null && par2 != null) {
                     if (gamertags.hasOwnProperty(par)) {
                         gamertags[par].gamertag = par2;
@@ -127,7 +116,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     });
                 };
                 break;
-            case 'prueba3':
+            case 'ayudagt':
                 bot.sendMessage({
                     to: channelID,
                     message: 'Para usar el GTBot (Bot de Gamertags) usa los siguientes comandos: \n'
@@ -136,6 +125,13 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 });
                 break;
             // Just add any case commands if you want to..
+                
+                /*   Mensaje de En Mantenimiento
+                bot.sendMessage({
+                    to: channelID,
+                    message: 'Por el momento, GTBot se encuentra en mantenimiento. Disculpa las molestias. Pronto volvera con toda la funcionalidad!'
+                });
+                break;*/
          }
      }
 });
