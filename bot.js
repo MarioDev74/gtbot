@@ -10,7 +10,7 @@ const fs = require("fs");
 var gamertags// = JSON.parse(data);
 
 var params = {
-    Bucket: "gtbot", Key: "AKIAJCSC4SVOSXAH4QQQ" };
+    Bucket: "gtbot", Key: "LDUIsrzlkQWPq0rlVsteL0h9TShGKWz4uwNyK8x4" };
 new AWS.S3().getObject(params, function (err, json_data) {
     if (!err) {
         gamertags = JSON.parse(new Buffer(json_data.Body).toString("utf8"));
