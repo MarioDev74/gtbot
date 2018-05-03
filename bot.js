@@ -14,7 +14,7 @@ new AWS.S3().getObject(params, function (err, json_data) {
     if (!err) {
         gamertags = JSON.parse(new Buffer(json_data.Body).toString("utf8"));
     } else {
-        gamertags = JSON.parse('{"mariocms": {"gamertag": "MarioCMS"}}');
+        gamertags = JSON.parse('{"mariocms": {"gamertag": "MarioFake"}}');
     }
    });
 
