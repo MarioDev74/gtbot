@@ -3,9 +3,9 @@ var logger = require('winston');
 var auth = require('./auth.json');
 
 const fs = require("fs");
-const { URL } = require('url');
-const fileUrl = new URL('https://drive.google.com/file/d/1IOsloIZl1k35zqIK6V7_rxBC5g7bwB_T/view?usp=sharing');
-var data = fs.readFileSync(fileUrl);
+//const { URL } = require('url');
+//const fileUrl = new URL('https://drive.google.com/file/d/1IOsloIZl1k35zqIK6V7_rxBC5g7bwB_T/view?usp=sharing');
+var data = fs.readFileSync('./gamertags.json');
 var gamertags = JSON.parse(data);
 
 // Configure logger settings
