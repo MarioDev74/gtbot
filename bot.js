@@ -36,7 +36,16 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         args = args.splice(1);
 
         switch(cmd) {
-            case 'gt':                
+            case 'gt':
+            case 'agregargt':
+            case 'ayudagt':
+                bot.sendMessage({
+                    to: channelID,
+                    message: 'Por el momento, GTBot se encuentra en mantenimiento. Disculpen las molestias. Pronto volverá con toda la funcionalidad!'
+                });
+                break;
+
+                /*
                 if (par != null) {
                     if (gamertags.hasOwnProperty(par)) {
                         let gt = gamertags[par].gamertag;
@@ -115,7 +124,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                         + '!agregargt -gamertag para registrar tu Gamertag en la base de datos, y que otros lo puedan buscar.'
                 });
                 break;
-            // Just add any case commands if you want to..
+            // Just add any case commands if you want to..*/
          }
      }
 });
