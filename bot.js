@@ -41,7 +41,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             case 'ayudagt':
                 bot.sendMessage({
                     to: channelID,
-                    message: 'Por el momento, GTBot se encuentra en mantenimiento. Disculpen las molestias. Pronto volverá con toda la funcionalidad!'
+                    message: 'Por el momento, GTBot se encuentra en mantenimiento. Disculpa las molestias. Pronto volvera con toda la funcionalidad!'
                 });
                 break;
 
