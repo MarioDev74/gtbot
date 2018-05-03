@@ -17,7 +17,7 @@ new AWS.S3().getObject(params, function (err, json_data) {
         gamertags = JSON.parse('{"mariocms": {"gamertag": "MarioFake"}}');
     }
    });
-
+ 
 // Configure logger settings
 logger.remove(logger.transports.Console);
 logger.add(logger.transports.Console, {
