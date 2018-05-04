@@ -71,6 +71,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 };
                 break;
             case 'agregargt':
+            case 'añadirgt':
                 if (par != null && par2 != null) {
                     if (gamertags.hasOwnProperty(par)) {
                         gamertags[par].gamertag = par2;
