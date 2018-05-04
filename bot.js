@@ -73,11 +73,9 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     if (gamertags.hasOwnProperty(par)) {
                         gamertags[par].gamertag = par2;
                         //fs.writeFile("./gamertags.json", JSON.stringify(gamertags, null, 4));
-                        params = {
-                            Bucket: 'gtbot', Key: 'gamertags.json', Body: JSON.stringify(gamertags, null, 4)
-                        };
+                        params = {Bucket: 'gtbot', Key: 'gamertags.json', Body: JSON.stringify(gamertags, null, 4)};
                         logger.info(params)
-                        s3.putObject(params, function (resp) {logger.info('GT agregado para ' + par)});
+                        s3.putObject(params, function (resp) {logger.info('GT modificado para ' + par)});
                         bot.sendMessage({
                             to: channelID,
                             message: 'El GT ' + par2 + ' ha sido modificado para el usuario ' + par
@@ -87,9 +85,9 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                         gamertags[par] = {
                             gamertag: par2
                         }
-                        fs.writeFile("./gamertags.json", JSON.stringify(gamertags, null, 4));//, err => {
-                        //if (err) throw err;
-                        //});
+                        params = {Bucket: 'gtbot', Key: 'gamertags.json', Body: JSON.stringify(gamertags, null, 4)};
+                        logger.info(params)
+                        s3.putObject(params, function (resp) {logger.info('GT agregado para ' + par)});
                         bot.sendMessage({
                             to: channelID,
                             message: 'El GT ' + par2 + ' ha sido agregado para el usuario ' + par
@@ -98,19 +96,20 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 } else if (par != null) { //Caso cuando un usuario agrega su propio GT.
                     if (gamertags.hasOwnProperty(user)) {
                         gamertags[user].gamertag = par;
-                        fs.writeFile("./gamertags.json", JSON.stringify(gamertags, null, 4));
+                        params = {Bucket: 'gtbot', Key: 'gamertags.json', Body: JSON.stringify(gamertags, null, 4)};
+                        logger.info(params)
+                        s3.putObject(params, function (resp) {logger.info('GT modificado para ' + par)});
                         bot.sendMessage({
                             to: channelID,
                             message: 'El GT ' + par + ' ha sido modificado para el usuario ' + user
                         });
                     } else {
-                        //var strgt = ""
                         gamertags[user] = {
                             gamertag: par
                         }
-                        fs.writeFile("./gamertags.json", JSON.stringify(gamertags, null, 4));//, err => {
-                        //if (err) throw err;
-                        //});
+                        params = {Bucket: 'gtbot', Key: 'gamertags.json', Body: JSON.stringify(gamertags, null, 4)};
+                        logger.info(params)
+                        s3.putObject(params, function (resp) {logger.info('GT agregado para ' + par)});
                         bot.sendMessage({
                             to: channelID,
                             message: 'El GT ' + par + ' ha sido agregado para el usuario ' + user + '.'
