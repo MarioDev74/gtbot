@@ -74,7 +74,6 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                         gamertags[par].gamertag = par2;
                         //fs.writeFile("./gamertags.json", JSON.stringify(gamertags, null, 4));
                         params = {Bucket: 'gtbot', Key: 'gamertags.json', Body: JSON.stringify(gamertags, null, 4)};
-                        logger.info(params)
                         s3.putObject(params, function (resp) {logger.info('GT modificado para ' + par)});
                         bot.sendMessage({
                             to: channelID,
@@ -86,7 +85,6 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                             gamertag: par2
                         }
                         params = {Bucket: 'gtbot', Key: 'gamertags.json', Body: JSON.stringify(gamertags, null, 4)};
-                        logger.info(params)
                         s3.putObject(params, function (resp) {logger.info('GT agregado para ' + par)});
                         bot.sendMessage({
                             to: channelID,
@@ -97,8 +95,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     if (gamertags.hasOwnProperty(user)) {
                         gamertags[user].gamertag = par;
                         params = {Bucket: 'gtbot', Key: 'gamertags.json', Body: JSON.stringify(gamertags, null, 4)};
-                        logger.info(params)
-                        s3.putObject(params, function (resp) {logger.info('GT modificado para ' + par)});
+                        s3.putObject(params, function (resp) {logger.info('GT modificado para ' + user)});
                         bot.sendMessage({
                             to: channelID,
                             message: 'El GT ' + par + ' ha sido modificado para el usuario ' + user
@@ -108,8 +105,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                             gamertag: par
                         }
                         params = {Bucket: 'gtbot', Key: 'gamertags.json', Body: JSON.stringify(gamertags, null, 4)};
-                        logger.info(params)
-                        s3.putObject(params, function (resp) {logger.info('GT agregado para ' + par)});
+                        s3.putObject(params, function (resp) {logger.info('GT agregado para ' + user)});
                         bot.sendMessage({
                             to: channelID,
                             message: 'El GT ' + par + ' ha sido agregado para el usuario ' + user + '.'
