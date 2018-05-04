@@ -50,7 +50,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             case 'gt':
                 if (par != null) {
                     //var lcpar = bot.users[Object.keys(bot.users).find(key => key.toLowerCase() === par.toLowerCase())].username;
-                    logger.info(bot.users);
+                    logger.info(JSON.parse(bot.users));
                     if (gamertags.hasOwnProperty(par)) {
                         let gt = gamertags[par].gamertag;
                         bot.sendMessage({
