@@ -66,7 +66,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 } else {
                     bot.sendMessage({
                         to: channelID,
-                        message: 'El comando utilizado requiere un nombre de usuario para buscar su GT.'
+                        message: 'El comando utilizado requiere un nombre de usuario de Discord para buscar su GT. Ej: !gt -usuariodiscord'
                     });
                 };
                 break;
