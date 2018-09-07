@@ -4,12 +4,13 @@ var auth = require('./auth.json');
 var AWS = require('aws-sdk');
 
 const fs = require("fs");
-var gamertags // = JSON.parse(data);
+var gamertags;
 var s3 = new AWS.S3();
 
 var params = {
     Bucket: 'gtbot', Key: 'gamertags.json'
 };
+
 s3.getObject(params, function (err, json_data) {
     if (!err) {
         gamertags = JSON.parse(new Buffer(json_data.Body).toString("utf8"));
@@ -60,14 +61,26 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     } else {
                         bot.sendMessage({
                             to: channelID,
-                            message: 'El usuario ' + par + ' aun no tiene un GT registrado. Favor de usar el comando !agregargt -gamertag para agregarlo. Asegurate de respetar mayusculas y minusculas.'
+                            message: 'El usuario ' + par + ' a\u00FAn no tiene un GT registrado. Favor de usar el comando !añadirgt -gamertag para agregarlo. Aseg\u00FArate de respetar may\u00FAsculas y min\u00FAsculas al buscar.'
                         });
                     };
                 } else {
-                    bot.sendMessage({
+                    if (gamertags.hasOwnProperty(user)) {
+                        let gt = gamertags[user].gamertag;
+                        bot.sendMessage({
+                            to: channelID,
+                            message: user + ' tu GT es: ' + gt
+                        });
+                    } else {
+                        bot.sendMessage({
+                            to: channelID,
+                            message: 'El usuario ' + user + ' a\u00FAn no tiene un GT registrado. Favor de usar el comando !añadirgt -gamertag para agregarlo.'
+                        });
+                    };
+                    /*bot.sendMessage({
                         to: channelID,
                         message: 'El comando utilizado requiere un nombre de usuario de Discord para buscar su GT. Ej: !gt -usuariodiscord'
-                    });
+                    });*/
                 };
                 break;
             case 'agregargt':
@@ -125,8 +138,9 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 bot.sendMessage({
                     to: channelID,
                     message: 'Para usar el GTBot (Bot de Gamertags) usa los siguientes comandos: \n'
-                        + '!gt -nombredeusuario para ver el Gamertag de algun usuario de Discord. \n'
-                        + '!agregargt -gamertag para registrar tu Gamertag en la base de datos, y que otros lo puedan buscar.'
+                        + '!gt para mostrar tu propio GT. \n'
+                        + '!gt -nombredeusuario para ver el Gamertag de alg\u00FAn usuario de Discord. \n'
+                        + '!añadirgt -gamertag para registrar tu Gamertag en la base de datos, y que otros lo puedan buscar.'
                 });
                 break;
             // Just add any case commands if you want to..
